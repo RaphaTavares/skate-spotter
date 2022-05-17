@@ -5,12 +5,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default SocialButton = ({buttonTitle, btnType, color, backgroundColor,  ...rest}) => {
   return(
-      <TouchableOpacity style={StyleSheet.buttonContainer, {backgroundColor: backgroundColor}} {...rest}>
+      <TouchableOpacity style={styles.buttonContainer, {backgroundColor: backgroundColor}} {...rest}>
         <View style={styles.iconWrapper}>
             <FontAwesome name={btnType} size={22} color={color} />
         </View>
         <View style={styles.btnTxtWrapper}>
-        <Text style={StyleSheet.buttonText, {color: color}}>{buttonTitle}</Text>
+        <Text style={styles.buttonText, {color: color}}>{buttonTitle}</Text>
         </View>
       </TouchableOpacity>
   );
@@ -19,8 +19,8 @@ export default SocialButton = ({buttonTitle, btnType, color, backgroundColor,  .
 const styles = StyleSheet.create({
     buttonContainer: {
       marginTop: 10,
-      width: '100%',
-      height: windowHeight / 15,
+      width: '10%',
+      height: '10%',
       padding: 10,
       flexDirection: 'row',
       borderRadius: 3,

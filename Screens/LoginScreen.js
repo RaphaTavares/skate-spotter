@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, Button, TouchableOpacity, Image } from 'react-native';
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
+import SocialButton from '../components/SocialButton';
 export default LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
@@ -35,14 +36,61 @@ export default LoginScreen = ({navigation}) => {
             onPress={() => alert('Sign In Clicked!')}
         />
 
+        <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
+            <Text style={styles.navButtonText}>Forgot Password?</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.forgotButton} onPress={() => navigation.navigate('Signup')}>
+            <Text style={styles.navButtonText}>Don't have an account? Create here!</Text>
+        </TouchableOpacity>
+
+        <SocialButton
+            buttonTitle="Sign In with Facebook"
+            btnType="facebook"
+            color="#4867aa"
+            backgroundColor="#e6eaf4"
+            onPress={() => {}}
+        />
+
+        <SocialButton
+            buttonTitle="Sign In with Google"
+            btnType="google"
+            color="#de4d41"
+            backgroundColor="#f5e7ea"
+            onPress={() => {}}
+        />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: "center"
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 20,
+      paddingTop: 50
     },
-});
+    logo: {
+      height: 150,
+      width: 150,
+      resizeMode: 'cover',
+    },
+    text: {
+      fontFamily: 'Kufam-SemiBoldItalic',
+      fontSize: 28,
+      marginBottom: 10,
+      color: '#051d5f',
+    },
+    navButton: {
+      marginTop: 15,
+    },
+    forgotButton: {
+      marginVertical: 35,
+    },
+    navButtonText: {
+      fontSize: 18,
+      fontWeight: '500',
+      color: '#2e64e5',
+      fontFamily: 'Lato-Regular',
+    },
+  });
