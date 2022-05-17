@@ -40,9 +40,6 @@ export default LoginScreen = ({navigation}) => {
             <Text style={styles.navButtonText}>Forgot Password?</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.forgotButton} onPress={() => navigation.navigate('Signup')}>
-            <Text style={styles.navButtonText}>Don't have an account? Create here!</Text>
-        </TouchableOpacity>
 
         <SocialButton
             buttonTitle="Sign In with Facebook"
@@ -59,7 +56,13 @@ export default LoginScreen = ({navigation}) => {
             backgroundColor="#f5e7ea"
             onPress={() => {}}
         />
+
+        <TouchableOpacity style={styles.forgotButton} onPress={() => navigation.navigate('Signup')}>
+            <Text style={styles.navButtonText}>Don't have an account? Create here!</Text>
+        </TouchableOpacity>
+        
         </View>
+        
     );
 };
 

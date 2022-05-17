@@ -11,72 +11,80 @@ export default SignupScreen = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Create an account</Text>
-            <FormInput
-        labelValue={email}
-        onChangeText={(userEmail) => setEmail(userEmail)}
-        placeholderText="Email"
-        iconType="user"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoCorrect={false}
-        />
-
-        <FormInput
+          <Text style={styles.text}>Create an account</Text>
+    
+          <FormInput
+            labelValue={email}
+            onChangeText={(userEmail) => setEmail(userEmail)}
+            placeholderText="Email"
+            iconType="user"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+    
+          <FormInput
             labelValue={password}
             onChangeText={(userPassword) => setPassword(userPassword)}
             placeholderText="Password"
             iconType="lock"
             secureTextEntry={true}
-        />
-        
-        <FormInput
+          />
+    
+          <FormInput
             labelValue={confirmPassword}
             onChangeText={(userPassword) => setConfirmPassword(userPassword)}
             placeholderText="Confirm Password"
             iconType="lock"
             secureTextEntry={true}
-        />
-
-        <FormButton
-            buttonTitle="Sign Un"
-            onPress={() => alert('Sign Un Clicked!')}
-        />
-
-        <View style={styles.textPrivate}>
-            <Text style={styles.color_textPrivate}>By registering, you confirm that you accept our </Text>
+          />
+    
+          <FormButton
+            buttonTitle="Sign Up"
+            onPress={() => register(email, password)}
+          />
+    
+          <View style={styles.textPrivate}>
+            <Text style={styles.color_textPrivate}>
+              By registering, you confirm that you accept our{' '}
+            </Text>
             <TouchableOpacity onPress={() => alert('Terms Clicked!')}>
-                <Text style={styles.color_textPrivate, {color: '#e88832'}}>Terms of service</Text>
+              <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
+                Terms of service
+              </Text>
             </TouchableOpacity>
             <Text style={styles.color_textPrivate}> and </Text>
-            <TouchableOpacity style={styles.color_textPrivate, {color: '#e88832'}}>Privacy Policy</TouchableOpacity>
-        </View>
-
-        <SocialButton
-            buttonTitle="Sign Up with Facebook"
-            btnType="facebook"
-            color="#4867aa"
-            backgroundColor="#e6eaf4"
-            onPress={() => {}}
-        />
-
-        <SocialButton
-            buttonTitle="Sign Up with Google"
-            btnType="google"
-            color="#de4d41"
-            backgroundColor="#f5e7ea"
-            onPress={() => {}}
-        />
-
-        <TouchableOpacity
+            <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
+              Privacy Policy
+            </Text>
+          </View>
+            <View>
+              <SocialButton
+                buttonTitle="Sign Up with Facebook"
+                btnType="facebook"
+                color="#4867aa"
+                backgroundColor="#e6eaf4"
+                onPress={() => {}}
+              />
+        
+              <SocialButton
+                buttonTitle="Sign Up with Google"
+                btnType="google"
+                color="#de4d41"
+                backgroundColor="#f5e7ea"
+                onPress={() => {}}
+              />
+            </View>
+          
+    
+          <TouchableOpacity
             style={styles.navButton}
             onPress={() => navigation.navigate('Login')}>
-                <Text>Have an account? Sign in</Text>
-
-        </TouchableOpacity>
-    </View>
-    );
-};
+            <Text style={styles.navButtonText}>Have an account? Sign In</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    };
 
 const styles = StyleSheet.create({
     container: {

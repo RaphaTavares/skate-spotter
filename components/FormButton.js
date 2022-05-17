@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         marginTop: 10,
         width: '100%',
-    height: Dimensions.get('window').width / 15,
+    height: Dimensions.get('window').height / 15,
     backgroundColor: '#2e64e5',
     padding: 10,
     alignItems: 'center',
