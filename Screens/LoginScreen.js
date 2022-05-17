@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Button, TouchableOpacity, Image } from 'react-n
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 export default LoginScreen = ({navigation}) => {
-    const [email, setEmail] = useState();
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
     return (
         <View style={styles.container}>
@@ -12,23 +12,23 @@ export default LoginScreen = ({navigation}) => {
                 style={styles.logo}
             />
             <Text style={styles.text}>Skate Spotter</Text>
-
             <FormInput
                 labelValue={email}
-                onChangeText={(userEmail) => setEmail(userEmail)}
                 placeholderText="Email"
                 iconType="user"
+                onChangeText={(userEmail) => setEmail(userEmail)}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
                 />
-            <FormInput
+            {/* <FormInput
                 labelValue={password}
                 onChangeText={(userPassword) => setPassword(userPassword)}
                 placeholderText="Password"
                 iconType="lock"
                 secureTextEntry={true}
-            />
+    /> */}
+
         </View>
     );
 };
