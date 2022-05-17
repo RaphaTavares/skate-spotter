@@ -4,7 +4,6 @@ import { useContext } from 'react/cjs/react.production.min';
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
-import { AuthContext } from '../navigation/AuthProvider.android';
 
 export default SignupScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
