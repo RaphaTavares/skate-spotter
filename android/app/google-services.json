@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "398288857102",
+    "project_id": "skatespotter-61c11",
+    "storage_bucket": "skatespotter-61c11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398288857102:android:4e725b4c25363e462d345f",
+        "android_client_info": {
+          "package_name": "com.skatespotter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398288857102-vb4n5056um3nhunf9escqastsurtv0fs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhVbBaKsTFOc5C0__zuX1MEbdiXOEhHO4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398288857102-vb4n5056um3nhunf9escqastsurtv0fs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
