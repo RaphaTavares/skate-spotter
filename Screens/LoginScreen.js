@@ -20,7 +20,7 @@ export default LoginScreen = ({navigation}) => {
         keyboardType="email-address"
         autoCapitalize="none"
         autoCorrect={false}
-      />
+        />
 
             <FormInput
                 labelValue={password}
@@ -28,7 +28,12 @@ export default LoginScreen = ({navigation}) => {
                 placeholderText="Password"
                 iconType="lock"
                 secureTextEntry={true}
-    />
+            />
+
+        <FormButton
+            buttonTitle="Sign In"
+            onPress={() => alert('Sign In Clicked!')}
+        />
 
         </View>
     );
