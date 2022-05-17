@@ -13,21 +13,22 @@ export default LoginScreen = ({navigation}) => {
             />
             <Text style={styles.text}>Skate Spotter</Text>
             <FormInput
-                labelValue={email}
-                placeholderText="Email"
-                iconType="user"
-                onChangeText={(userEmail) => setEmail(userEmail)}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoCorrect={false}
-                />
-            {/* <FormInput
+        labelValue={email}
+        onChangeText={(userEmail) => setEmail(userEmail)}
+        placeholderText="Email"
+        iconType="user"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+
+            <FormInput
                 labelValue={password}
                 onChangeText={(userPassword) => setPassword(userPassword)}
                 placeholderText="Password"
                 iconType="lock"
                 secureTextEntry={true}
-    /> */}
+    />
 
         </View>
     );
