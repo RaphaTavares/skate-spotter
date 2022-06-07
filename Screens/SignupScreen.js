@@ -6,15 +6,75 @@ import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
 
 export default SignupScreen = ({navigation}) => {
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [userName, setUserName] = useState();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
+    const [userId, setUserId] = useState();
 
-    const {register} = useContext(AuthContext);
+    const handleSignup = () => {
+      // Fetch
+      const url = 'http://localhost:3000/signup'
+      const options = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify({
+          lastname: lastName,
+          firstname: firstName,
+          userName: userName,
+          email: email,
+          password: password
+        })
+      };
 
     return (
         <View style={styles.container}>
           <Text style={styles.text}>Create an account</Text>
+    
+          <FormInput
+            labelValue={id}
+            onChangeText={(userId) => setUserId(userId)}
+            placeholderText="id"
+            iconType="user"
+            keyboardType="text"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+    
+          <FormInput
+            labelValue={firstName}
+            onChangeText={(userfirstName) => setFirstName(userfirstName)}
+            placeholderText="firstName"
+            iconType="user"
+            keyboardType="text"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+    
+          <FormInput
+            labelValue={lastName}
+            onChangeText={(userlastName) => setLastName(userlastName)}
+            placeholderText="lastName"
+            iconType="user"
+            keyboardType="text"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+    
+          <FormInput
+            labelValue={userName}
+            onChangeText={(useruserName) => setUserName(useruserName)}
+            placeholderText="userName"
+            iconType="user"
+            keyboardType="text"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
     
           <FormInput
             labelValue={email}
@@ -44,7 +104,7 @@ export default SignupScreen = ({navigation}) => {
     
           <FormButton
             buttonTitle="Sign Up"
-            onPress={() => register(email, password)}
+            onPress={() => handleSignup(email, password)}
           />
     
           <View style={styles.textPrivate}>
