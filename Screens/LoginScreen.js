@@ -6,6 +6,28 @@ import SocialButton from '../components/SocialButton';
 export default LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
+  
+    const handleLogin = () => {
+      // Fetch
+      const url = 'http://localhost:3000/login'
+      const options = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      };
+
+      fetch(url, options)
+        .then( response => { return response.json() })
+        .then( data => console.log(data) )
+        .catch()
+      }
+    }
     return (
         <View style={styles.container}>
             <Image
@@ -33,7 +55,7 @@ export default LoginScreen = ({navigation}) => {
 
         <FormButton
             buttonTitle="Sign In"
-            onPress={() => alert('Sign In Clicked!')}
+            onPress={() => handleLogin()}
         />
 
         <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
