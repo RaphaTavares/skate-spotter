@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Button, TouchableOpacity, Image } from 'react-n
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
+import { useFonts } from 'expo-font';
 export default LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
@@ -26,8 +27,8 @@ export default LoginScreen = ({navigation}) => {
         .then( response => { return response.json() })
         .then( data => console.log(data) )
         .catch()
-      }
-    }
+      };
+    
     return (
         <View style={styles.container}>
             <Image
@@ -101,7 +102,6 @@ const styles = StyleSheet.create({
       resizeMode: 'cover',
     },
     text: {
-      fontFamily: 'Kufam-SemiBoldItalic',
       fontSize: 28,
       marginBottom: 10,
       color: '#051d5f',
@@ -116,6 +116,5 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: '500',
       color: '#2e64e5',
-      fontFamily: 'Lato-Regular',
     },
   });

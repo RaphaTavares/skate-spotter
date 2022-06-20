@@ -4,6 +4,9 @@ import { useContext } from 'react/cjs/react.production.min';
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
+import { useFonts } from 'expo-font';
+
+//Lato-Regular
 
 export default SignupScreen = ({navigation}) => {
     const [firstName, setFirstName] = useState();
@@ -12,7 +15,6 @@ export default SignupScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
-    const [userId, setUserId] = useState();
 
     const handleSignup = () => {
       // Fetch
@@ -32,26 +34,22 @@ export default SignupScreen = ({navigation}) => {
         })
       };
 
+      fetch(url, options)
+        .then( response => { return response.json() })
+        .then( data => console.log(data) )
+        .catch()
+    };
+    
     return (
         <View style={styles.container}>
           <Text style={styles.text}>Create an account</Text>
-    
-          <FormInput
-            labelValue={id}
-            onChangeText={(userId) => setUserId(userId)}
-            placeholderText="id"
-            iconType="user"
-            keyboardType="text"
-            autoCapitalize="none"
-            autoCorrect={false}
-          />
     
           <FormInput
             labelValue={firstName}
             onChangeText={(userfirstName) => setFirstName(userfirstName)}
             placeholderText="firstName"
             iconType="user"
-            keyboardType="text"
+            keyboardType="default"
             autoCapitalize="none"
             autoCorrect={false}
           />
@@ -61,7 +59,7 @@ export default SignupScreen = ({navigation}) => {
             onChangeText={(userlastName) => setLastName(userlastName)}
             placeholderText="lastName"
             iconType="user"
-            keyboardType="text"
+            keyboardType="default"
             autoCapitalize="none"
             autoCorrect={false}
           />
@@ -71,7 +69,7 @@ export default SignupScreen = ({navigation}) => {
             onChangeText={(useruserName) => setUserName(useruserName)}
             placeholderText="userName"
             iconType="user"
-            keyboardType="text"
+            keyboardType="default"
             autoCapitalize="none"
             autoCorrect={false}
           />
@@ -148,7 +146,6 @@ export default SignupScreen = ({navigation}) => {
         </View>
       );
     };
-
 const styles = StyleSheet.create({
     container: {
       justifyContent: 'center',
@@ -157,7 +154,6 @@ const styles = StyleSheet.create({
       paddingTop: 50
     },
     text: {
-      fontFamily: 'Kufam-SemiBoldItalic',
       fontSize: 28,
       marginBottom: 10,
       color: '#051d5f',
@@ -169,7 +165,6 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: '500',
       color: '#2e64e5',
-      fontFamily: 'Lato-Regular',
     },
     textPrivate: {
         flexDirection: 'row',
@@ -180,7 +175,6 @@ const styles = StyleSheet.create({
       color_textPrivate: {
         fontSize: 13,
         fontWeight: '400',
-        fontFamily: 'Lato-Regular',
         color: 'grey',
       },
   });
