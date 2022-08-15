@@ -28,11 +28,7 @@ export default LoginScreen = ({navigation}) => {
 
 
       fetch(url, options)
-        .then( (response) => {
-          console.log("essa é a response: " + response);
-          JSON.stringify(response);
-          
-        })
+        .then( (response) => response.json())
         .then( (json) => {console.log(json)})
         .catch( (error) => {
           console.log(error.message)
