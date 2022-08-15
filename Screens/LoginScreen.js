@@ -10,23 +10,33 @@ export default LoginScreen = ({navigation}) => {
   
     const handleLogin = () => {
       // Fetch
-      const url = 'http://localhost:3000/login'
+      const url = 'http://192.168.15.2:3000/login'
       const options = {
         method: 'POST',
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8'
+          'Accept': '*/*',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          email: email,
-          password: password
+          "email": email,
+          "password": password
         })
       };
+      console.log("run")
+
+      console.log(JSON.stringify(options))
+
 
       fetch(url, options)
-        .then( response => { return response.json() })
-        .then( data => console.log(data) )
-        .catch()
+        .then( (response) => {
+          console.log("essa é a response: " + response);
+          JSON.stringify(response);
+          
+        })
+        .then( (json) => {console.log(json)})
+        .catch( (error) => {
+          console.log(error.message)
+        })
       };
     
     return (
