@@ -6,7 +6,7 @@ import * as Location from 'expo-location';
 // import { enableLatestRenderer } from "react-native-maps"
 
 export default SpotListScreen = ({navigation}) => {
-    const [location, setLocation] = useState(null);
+    const [location, setLocation] = useState();
     const [errorMsg, setErrorMsg] = useState(null);
     const [mapRegion, setmapRegion] = useState({
       latitude: 37.78825,
@@ -31,15 +31,17 @@ export default SpotListScreen = ({navigation}) => {
       })();
     }, []);
 
+
+
     if(errorMsg){
       return (
         <Text>{errorMsg}</Text>
       )
     }
     else if(location){
-      console.table(location);
+      console.log("location aqui: " + JSON.stringify(location));
+
       return (
-        <View>
         <MapView 
             style={styles.map}
             region={{
@@ -49,8 +51,6 @@ export default SpotListScreen = ({navigation}) => {
                 longitudeDelta: 0.0121,
             }}
             />
-
-        </View>
       )
     }
     else{
