@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useGeolocated } from "react-geolocated";
 import * as Location from 'expo-location';
-import { enableLatestRenderer } from "react-native-maps";
+// import { enableLatestRenderer } from "react-native-maps"
 
 export default SpotListScreen = ({navigation}) => {
     const [location, setLocation] = useState(null);
@@ -15,7 +15,8 @@ export default SpotListScreen = ({navigation}) => {
       longitudeDelta: 0.0421,
     });
     
-    enableLatestRenderer();
+    // enableLatestRenderer();
+
     useEffect(() => {
       (async () =>{
         let { status } = await Location.requestForegroundPermissionsAsync();
@@ -24,8 +25,9 @@ export default SpotListScreen = ({navigation}) => {
           return;
         }
 
-        let location = await Location.getCurrentPositionAsync({});
+        let location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest, maximumAge: 10000});
         setLocation(location);
+        console.log(location)
       })();
     }, []);
 
