@@ -25,6 +25,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDi7FUuan_Nsz9BPc39pnPJcgr0ZqEbC0s"
+        }
+      },
       "package": "spotterskate.spotter"
     },
     "web": {

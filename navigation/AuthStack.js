@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "../Screens/LoginScreen";
+import SpotListScreen from '../Screens/SpotListScreen';
 import { StyleSheet } from 'react-native';
 import SignupScreen from "../Screens/SignupScreen";
 
@@ -11,7 +12,10 @@ const Stack = createStackNavigator();
 
 export default function AuthStack() {
     return (
-        <Stack.Navigator initialRouteName={"Login"}>
+        <Stack.Navigator initialRouteName={"SpotList"}>
+            
+            <Stack.Screen name="SpotList" component={SpotListScreen} options={{header: () => null}} />
+
             <Stack.Screen name="Login" component={LoginScreen} options={{header: () => null}} />
 
             <Stack.Screen name="Signup" component={SignupScreen} options={({navigation}) => ({
