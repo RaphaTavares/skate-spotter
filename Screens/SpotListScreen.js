@@ -1,59 +1,106 @@
 import React, { useEffect, Fragment, useState } from 'react';
-import { StyleSheet, Text, _View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import Geolocation from '@react-native-community/geolocation';
 import { useGeolocated } from "react-geolocated";
+import * as Location from 'expo-location';
+import { enableLatestRenderer } from "react-native-maps";
 
 export default SpotListScreen = ({navigation}) => {
-    const [latitude, setLatitude] = useState();
-    const [longitude, setLongitude] = useState();
-    const [location, setLocation] = useState(false);
-    const [coords, setCoords] = useState();
-    const [isGeolocationAvailable, setIsGeolocationAvailable] = useState(false);
-    const [isGeolocationEnabled, setIsGeolocationEnabled] = useState(false);
+    const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
+    const [mapRegion, setmapRegion] = useState({
+      latitude: 37.78825,
+      longitude: -122.4324,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    });
+    
+    enableLatestRenderer();
+    useEffect(() => {
+      (async () =>{
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if(status !== 'granted'){
+          setErrorMsg('Permission to access location was denied');
+          return;
+        }
 
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+      })();
+    }, []);
 
-    useEffect(()=>{
-        const { coords, isGeolocationAvailable, isGeolocationEnabled } =
-        useGeolocated({
-            positionOptions: {
-                enableHighAccuracy: false,
-            },
-            userDecisionTimeout: 5000,
-        });
-        setCoords(coords);
-        setIsGeolocationAvailable(isGeolocationAvailable);
-        setIsGeolocationEnabled(isGeolocationEnabled);
-      }, []);
-
-      if (!isGeolocationAvailable) {
-        return (
-          <Text>Seu browser não suporta geolocalização</Text>
-        )
-      } else if (!isGeolocationEnabled) {
-        return (
-        <Text>Geolocation não habilitada</Text>)
-      } else if (coords) {
-            <Text>Hello World</Text>,
-            <MapView 
+    if(errorMsg){
+      return (
+        <Text>{errorMsg}</Text>
+      )
+    }
+    else if(location){
+      console.table(location);
+      return (
+        <View>
+        <MapView 
             style={styles.map}
             region={{
-                latitude: coords.latitude,
-                longitude: coords.longitude,
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
                 latitudeDelta: 0.015,
                 longitudeDelta: 0.0121,
             }}
-            >
-            <Marker
-        coordinate={{
-            latitude: coords.latitude,
-            longitude: coords.longitude,
-        }}
-        title="Test"
-        description="This is the test description"
-        />
-            </MapView>
-};
+            />
+
+        </View>
+      )
+    }
+    else{
+      return (
+        <Text>
+          NOTHING
+        </Text>
+      )
+    }
+  }
+
+    // useEffect(()=>{
+    //     const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+    //     useGeolocated({
+    //         positionOptions: {
+    //             enableHighAccuracy: false,
+    //         },
+    //         userDecisionTimeout: 5000,
+    //     });
+    //     setCoords(coords);
+    //     setIsGeolocationAvailable(isGeolocationAvailable);
+    //     setIsGeolocationEnabled(isGeolocationEnabled);
+    //   }, []);
+
+//       if (!isGeolocationAvailable) {
+//         return (
+//           <Text>Seu browser não suporta geolocalização</Text>
+//         )
+//       } else if (!isGeolocationEnabled) {
+//         return (
+//         <Text>Geolocation não habilitada</Text>)
+//       } else if (coords) {
+//             <Text>Hello World</Text>,
+//             <MapView 
+//             style={styles.map}
+//             region={{
+//                 latitude: coords.latitude,
+//                 longitude: coords.longitude,
+//                 latitudeDelta: 0.015,
+//                 longitudeDelta: 0.0121,
+//             }}
+//             >
+//             <Marker
+//         coordinate={{
+//             latitude: coords.latitude,
+//             longitude: coords.longitude,
+//         }}
+//         title="Test"
+//         description="This is the test description"
+//         />
+//             </MapView>
+// };
 
 const styles = StyleSheet.create({
     container: {
@@ -91,4 +138,3 @@ const styles = StyleSheet.create({
         height: 400,
       },
     });
-}
