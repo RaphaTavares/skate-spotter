@@ -1,6 +1,7 @@
 import React, { useEffect, Fragment, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import * as Location from 'expo-location';
 import Pin from '../utils/Pin';
 import Spots from '../components/Spots';
@@ -9,9 +10,11 @@ import { FlatList } from 'react-native-gesture-handler';
 export default SpotListScreen = ({navigation}) => {
     const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
-    const [spots, setSpots] = useState(null);
+    const [spots, setSpot] = useState(null);
 
-    
+    console.log("ANTES",spots);
+
+    const route = useRoute();
     //enableLatestRenderer();
     useEffect(() => {
       (async () =>{
@@ -24,14 +27,14 @@ export default SpotListScreen = ({navigation}) => {
         let location = await Location.getCurrentPositionAsync({});
         setLocation(location);
         
-        const url = 'http://192.168.100.6:3000/spot/getAll'
+        const url = `http://192.168.100.6:3000/spot/getById?id=${route.params.id}`
         const options = {
           method: 'GET'
         }
   
         fetch(url, options)
           .then( (response) => response.json() )
-          .then( data => setSpots(data) )
+          .then( data => setSpot(data))
           .catch( (error) => {console.log(error)})
       })();
 
@@ -55,28 +58,19 @@ export default SpotListScreen = ({navigation}) => {
                 longitude: location.coords.longitude,
                 latitudeDelta: 0.015,
                 longitudeDelta: 0.0121,
-            }}
-            showsUserLocation>
+            }}>
           
-          {
-             spots && spots.map((spot)=>{
-             console.log("printado dentro dos pins "+spot.name);
-             return(
-                <Marker key={spot.id} coordinate={{latitude: parseFloat(spot.latitude), longitude: parseFloat(spot.longitude)}}><Pin aviso={spot.id} corFundo='red'/>
+            {spots && (
+                <Marker key={spots.id} coordinate={{latitude: parseFloat(spots.latitude), longitude: parseFloat(spots.longitude)}}><Pin aviso={spots.id} corFundo='red'/>
                 </Marker>
-                );
-              })
-           } 
+                )} 
             
             </MapView>
+
+            <View><Text>ID do spot: {spots?.id}</Text></View>
+            <View><Text>Criado em: {spots?.created_at}</Text></View>
+            <View><Text>Descrição: {spots?.description}</Text></View>
             
-
-            <FlatList
-              data={spots}
-              renderItem={({item}) => (<Spots spot={item}/>)}
-            />
-
-            <Text>Hello world</Text>
         </View>
       )
     }

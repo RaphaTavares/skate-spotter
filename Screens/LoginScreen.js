@@ -10,7 +10,7 @@ export default LoginScreen = ({navigation}) => {
   
     const handleLogin = () => {
       // Fetch
-      const url = 'http://192.168.15.14:3000/login'
+      const url = 'http://192.168.100.6:3000/login'
       const options = {
         method: 'POST',
         headers: {
