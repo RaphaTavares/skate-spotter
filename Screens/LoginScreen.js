@@ -10,7 +10,7 @@ export default LoginScreen = ({navigation}) => {
   
     const handleLogin = () => {
       // Fetch
-      const url = 'http://192.168.100.6:3000/login'
+      const url = 'http://192.168.15.14:3000/login'
       const options = {
         method: 'POST',
         headers: {
@@ -28,10 +28,18 @@ export default LoginScreen = ({navigation}) => {
 
 
       fetch(url, options)
-        .then( (response) => response.json())
-        .then( (json) => {console.log(json)})
+        .then( (response) => {
+          if(response.status == 200)
+          {
+          navigation.navigate('SpotList');
+          }
+          else if(response.status == 400){
+            alert("senha incorreta");
+            console.log(response.body);
+          }
+        })
         .catch( (error) => {
-          console.log(error.message)
+          alert("não foi possível logar: " + error)
         })
       };
     
@@ -63,27 +71,6 @@ export default LoginScreen = ({navigation}) => {
         <FormButton
             buttonTitle="Sign In"
             onPress={() => handleLogin()}
-        />
-
-        <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
-            <Text style={styles.navButtonText}>Forgot Password?</Text>
-        </TouchableOpacity>
-
-
-        <SocialButton
-            buttonTitle="Sign In with Facebook"
-            btnType="facebook"
-            color="#4867aa"
-            backgroundColor="#e6eaf4"
-            onPress={() => {}}
-        />
-
-        <SocialButton
-            buttonTitle="Sign In with Google"
-            btnType="google"
-            color="#de4d41"
-            backgroundColor="#f5e7ea"
-            onPress={() => {}}
         />
 
         <TouchableOpacity style={styles.forgotButton} onPress={() => navigation.navigate('Signup')}>
