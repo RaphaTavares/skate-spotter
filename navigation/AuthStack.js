@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 
 export default function AuthStack() {
     return (
-        <Stack.Navigator initialRouteName={"Login"}>
+        <Stack.Navigator initialRouteName={"SpotCreation"}>
             
             <Stack.Screen name="SpotList" component={SpotListScreen} options={{header: () => null}} />
 

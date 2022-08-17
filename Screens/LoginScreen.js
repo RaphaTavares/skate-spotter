@@ -37,25 +37,17 @@ export default LoginScreen = ({navigation}) => {
 
 
       fetch(url, options)
-<<<<<<< HEAD
-        .then( (response) => {
-          if(response.status == 200)
-          {
+      .then( (response) => {
+        if(response.status == 200){
           navigation.navigate('SpotList');
-          }
-          else if(response.status == 400){
-            alert("senha incorreta");
-            console.log(response.body);
-          }
-        })
-=======
-        .then( (response) => response.json())
-        .then( (json) => console.log(json))
-        .then(() => navigation.navigate('SpotList'))       
->>>>>>> 412e9dfab95249d7d7f19688726ab9e71ffa48d3
-        .catch( (error) => {
-          alert("não foi possível logar: " + error)
-        })
+        }
+        else if(response.status == 400){
+          alert("senha incorreta");
+        }
+      })
+      .catch( (error) => {
+        alert("não foi possível logar");
+              })
       };
     
     return (
