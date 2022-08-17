@@ -1,21 +1,23 @@
 import React, { useEffect, Fragment, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { useRoute, useNavigation } from '@react-navigation/native';
 import * as Location from 'expo-location';
 import Pin from '../utils/Pin';
 import Spots from '../components/Spots';
 import { FlatList } from 'react-native-gesture-handler';
-import { Button, TouchableOpacity } from 'react-native-web';
+import { Picker } from '@react-native-picker/picker'; 
 
-export default SpotListScreen = ({navigation}) => {
-    const [location, setLocation] = useState(null);
+export default ApprovalList = ({navigation}) => {
+    const [location, setLocation] = useState();
     const [errorMsg, setErrorMsg] = useState(null);
-    const [spots, setSpot] = useState(null);
+    const [spots, setSpots] = useState(null);
+    const [pick, setPick] = useState();
 
-    console.log("ANTES",spots);
+    const spottypes = spots?.map(spot => spot.spottype);
+    const filteredspots = !pick ? spots : spots.filter(spot => spot.spottype==pick);
+    
+    console.log('Filtrados:',filteredspots);
 
-    const route = useRoute();
     //enableLatestRenderer();
     useEffect(() => {
       (async () =>{
@@ -25,22 +27,24 @@ export default SpotListScreen = ({navigation}) => {
           return;
         }
 
-        let location = await Location.getCurrentPositionAsync({});
+        let location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest, maximumAge: 10000});
         setLocation(location);
         
-        const url = `http://192.168.100.6:3000/spot/getById?id=${route.params.id}`
+        const url = 'http://192.168.100.6:3000/spot/getAll'
         const options = {
           method: 'GET'
         }
   
         fetch(url, options)
           .then( (response) => response.json() )
-          .then( data => setSpot(data))
+          .then( data => setSpots(data.filter(spot => spot.status != 'approved')) )
           .catch( (error) => {console.log(error)})
       })();
 
 
     }, []);
+
+
 
     if(errorMsg){
       return (
@@ -49,47 +53,29 @@ export default SpotListScreen = ({navigation}) => {
     }
     else if(location){
       //console.table(location);
-      console.log(spots);
+      //console.log(spots);
+      console.log("Filtro: "+pick)
       return (
-        <View style={styles.container}>
-          <MapView 
-            style={styles.map}
-            region={{
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-                latitudeDelta: 0.015,
-                longitudeDelta: 0.0121,
-            }}
-            showsUserLocation>
-          
-            {spots && (
-                <Marker key={spots.id} coordinate={{latitude: parseFloat(spots.latitude), longitude: parseFloat(spots.longitude)}}><Pin aviso={spots.id} corFundo='red'/>
-                </Marker>
-                )} 
-            
-            </MapView>
-
-            <View style={styles.container}>
-                <View style={styles.text}><Text>ID do spot: {spots?.id}</Text></View>
-                <View style={styles.text}><Text>Criado em: {spots?.created_at}</Text></View>
-                <View style={styles.text}><Text>Descrição: {spots?.description}</Text></View>
+        <View style={styles.container}>            
+            <View style={styles}>
+              {pick != undefined && <Picker selectedValue={pick} onValueChange={(item, index) => setPick(item)}>
+                <Picker.Item label='Nenhum filtro' value=''/>
+                {spottypes && spottypes.map(spottype => {
+                  return (
+                    <Picker.Item label={spottype} value={spottype}/>
+                  )
+                }) }
+              </Picker>}
+              <FlatList
+                data={filteredspots}
+                renderItem={({item}) => (<Spots spot={item}/>)}
+              />
             </View>
-
-            {spots?.status != 'approved' &&
-                <View>
-                    <Text>Este spot necessita de aprovação</Text>
-                </View>
-            }
-            
         </View>
       )
     }
     else{
-      return (
-        <Text>
-          Nothing Loaded
-        </Text>
-      )
+      return (<View></View>)
     }
   }
 
@@ -143,7 +129,7 @@ const styles = StyleSheet.create({
       paddingTop: 50
     },
     text: {
-      fontSize: 60,
+      fontSize: 50,
       marginBottom: 10,
       color: '#051d5f',
     },

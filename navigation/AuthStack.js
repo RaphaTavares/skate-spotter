@@ -6,6 +6,8 @@ import SpotListScreen from '../Screens/SpotListScreen';
 import { StyleSheet } from 'react-native';
 import SignupScreen from "../Screens/SignupScreen";
 import SpotDetails from '../Screens/SpotDetails';
+import ApprovalList from '../Screens/ApprovalList';
+import SpotCreationScreen from '../Screens/SpotCreationScreen';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
@@ -18,6 +20,10 @@ export default function AuthStack() {
             <Stack.Screen name="SpotList" component={SpotListScreen} options={{header: () => null}} />
 
             <Stack.Screen name="Login" component={LoginScreen} options={{header: () => null}} />
+
+            <Stack.Screen name="SpotCreation" component={SpotCreationScreen} options={{header: () => null}} />
+
+            <Stack.Screen name="ApprovalList" component={ApprovalList} options={{header: () => null}} />
             
             <Stack.Screen name="SpotDetails" component={SpotDetails} options={{header: () => null}} />
 
