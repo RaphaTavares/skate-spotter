@@ -18,7 +18,7 @@ export default SignupScreen = ({navigation}) => {
 
     const handleSignup = () => {
       // Fetch
-      const url = 'http://localhost:3000/signup'
+      const url = 'http://192.168.15.14:3000/signup'
       const options = {
         method: 'POST',
         headers: {
@@ -26,11 +26,11 @@ export default SignupScreen = ({navigation}) => {
           'Content-Type': 'application/json;charset=UTF-8'
         },
         body: JSON.stringify({
-          lastname: user.lastName,
-          firstname: user.firstName,
-          username: user.userName,
-          email: user.email,
-          password: user.password,
+          lastname: lastName,
+          firstname: firstName,
+          username: userName,
+          email: email,
+          password: password,
           isadmin: true
         })
       };
