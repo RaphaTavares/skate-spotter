@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Button, TouchableOpacity, Image } from 'react-native';
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
@@ -7,7 +7,16 @@ import { useFonts } from 'expo-font';
 export default LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
-  
+    const [logged, setLogged] = useState(false);
+
+    useEffect(() => {
+      (async () =>{
+        if(logged == true){() => navigation.navigate('SpotList')}
+      })();
+
+
+    }, []);
+
     const handleLogin = () => {
       // Fetch
       const url = 'http://192.168.15.14:3000/login'
@@ -24,10 +33,11 @@ export default LoginScreen = ({navigation}) => {
       };
       console.log("run")
 
-      console.log(JSON.stringify(options))
+      //console.log(JSON.stringify(options))
 
 
       fetch(url, options)
+<<<<<<< HEAD
         .then( (response) => {
           if(response.status == 200)
           {
@@ -38,6 +48,11 @@ export default LoginScreen = ({navigation}) => {
             console.log(response.body);
           }
         })
+=======
+        .then( (response) => response.json())
+        .then( (json) => console.log(json))
+        .then(() => navigation.navigate('SpotList'))       
+>>>>>>> 412e9dfab95249d7d7f19688726ab9e71ffa48d3
         .catch( (error) => {
           alert("não foi possível logar: " + error)
         })
