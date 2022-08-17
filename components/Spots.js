@@ -6,7 +6,7 @@ export default Spots = ( spot) => {
     spotname = String(spot.spot.name);
     spotdesc = String(spot.spot.description);
     
-    console.log("COMPONETE", spot.spot.name)
+    //console.log("COMPONETE", spot.spot.name)
 
     const navigation = useNavigation()
     
@@ -15,7 +15,7 @@ export default Spots = ( spot) => {
     }
 
     return (
-        <TouchableOpacity onPress={() => handleSelectedItem(spot.spot.id)}><Text>({spot.spot.id}) {spotname}: {spotdesc} | {spot.spot.spottype}
+        <TouchableOpacity onPress={() => handleSelectedItem(spot.spot.id)}><Text>[ {spot.spot.id} ] {spotname}: {spotdesc} | {spot.spot.spottype}
         </Text></TouchableOpacity>
     )
 }

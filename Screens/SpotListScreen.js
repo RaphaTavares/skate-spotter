@@ -5,13 +5,19 @@ import * as Location from 'expo-location';
 import Pin from '../utils/Pin';
 import Spots from '../components/Spots';
 import { FlatList } from 'react-native-gesture-handler';
+import { Picker } from '@react-native-picker/picker'; 
 
 export default SpotListScreen = ({navigation}) => {
     const [location, setLocation] = useState();
     const [errorMsg, setErrorMsg] = useState(null);
     const [spots, setSpots] = useState(null);
+    const [pick, setPick] = useState();
 
+    const spottypes = spots?.map(spot => spot.spottype);
+    const filteredspots = !pick ? spots : spots.filter(spot => spot.spottype==pick);
     
+    console.log('Filtrados:',filteredspots);
+
     //enableLatestRenderer();
     useEffect(() => {
       (async () =>{
@@ -31,7 +37,7 @@ export default SpotListScreen = ({navigation}) => {
   
         fetch(url, options)
           .then( (response) => response.json() )
-          .then( data => setSpots(data) )
+          .then( data => setSpots(data.filter(spot => spot.status == 'approved')) )
           .catch( (error) => {console.log(error)})
       })();
 
@@ -47,7 +53,8 @@ export default SpotListScreen = ({navigation}) => {
     }
     else if(location){
       //console.table(location);
-      console.log(spots);
+      //console.log(spots);
+      console.log("Filtro: "+pick)
       return (
         <View style={styles.container}>
           <MapView 
@@ -61,8 +68,8 @@ export default SpotListScreen = ({navigation}) => {
             showsUserLocation>
           
           {
-             spots && spots.map((spot)=>{
-             console.log("printado dentro dos pins "+spot.name);
+             spots && filteredspots.map((spot)=>{
+             //console.log("printado dentro dos pins "+spot.name);
              return(
                 <Marker key={spot.id} coordinate={{latitude: parseFloat(spot.latitude), longitude: parseFloat(spot.longitude)}}><Pin aviso={spot.id} corFundo='red'/>
                 </Marker>
@@ -72,22 +79,25 @@ export default SpotListScreen = ({navigation}) => {
             
             </MapView>
             
-
-            <FlatList
-              data={spots}
-              renderItem={({item}) => (<Spots spot={item}/>)}
-            />
-
-            <Text>Hello world</Text>
+            <View style={styles}>
+              <Picker selectedValue={pick} onValueChange={(item, index) => setPick(item)}>
+                <Picker.Item label='Nenhum filtro' value=''/>
+                { spottypes && spottypes.map(spottype => {
+                  return (
+                    <Picker.Item label={spottype} value={spottype}/>
+                  )
+                }) }
+              </Picker>
+              <FlatList
+                data={filteredspots}
+                renderItem={({item}) => (<Spots spot={item}/>)}
+              />
+            </View>
         </View>
       )
     }
     else{
-      return (
-        <Text>
-          NOTHING
-        </Text>
-      )
+      return (<View></View>)
     }
   }
 
