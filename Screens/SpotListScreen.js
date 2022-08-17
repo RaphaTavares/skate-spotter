@@ -7,7 +7,7 @@ import Spots from '../components/Spots';
 import { FlatList } from 'react-native-gesture-handler';
 
 export default SpotListScreen = ({navigation}) => {
-    const [location, setLocation] = useState(null);
+    const [location, setLocation] = useState();
     const [errorMsg, setErrorMsg] = useState(null);
     const [spots, setSpots] = useState(null);
 
@@ -21,7 +21,7 @@ export default SpotListScreen = ({navigation}) => {
           return;
         }
 
-        let location = await Location.getCurrentPositionAsync({});
+        let location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest, maximumAge: 10000});
         setLocation(location);
         
         const url = 'http://192.168.100.6:3000/spot/getAll'
@@ -37,6 +37,8 @@ export default SpotListScreen = ({navigation}) => {
 
 
     }, []);
+
+
 
     if(errorMsg){
       return (
