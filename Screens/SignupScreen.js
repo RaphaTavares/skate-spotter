@@ -18,7 +18,7 @@ export default SignupScreen = ({navigation}) => {
 
     const handleSignup = () => {
       // Fetch
-      const url = 'http://localhost:3000/signup'
+      const url = 'http://192.168.100.6:3000/signup'
       const options = {
         method: 'POST',
         headers: {
