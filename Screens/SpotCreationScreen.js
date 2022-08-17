@@ -7,7 +7,7 @@ import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
 import { useFonts } from 'expo-font';
-
+import ModalSelector from 'react-native-modal-selector';
 //Lato-Regular
 
 export default SpotCreation = ({ navigation }) => {
@@ -20,15 +20,22 @@ export default SpotCreation = ({ navigation }) => {
   const [spottype, setSpottype] = useState();
   const [status, setStatus] = useState('not approved');
 
+  const data = [
+    {key: 1, label: 'corrimão'},
+    {key: 2, label: 'borda'},
+    {key: 3, label: 'rampa'},
+    {key: 4, label: 'gap'}
+  ]
+
   const handleCreateSpot = () => {
-    const url = 'http://localhost:3000/spot/createSpot'
+    const url = 'http://192.168.15.14:3000/spot/createSpot'
     const options = {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json;charset=UTF-8'
       },
-      body: JSON.stringify({userid: userid,
+      body: JSON.stringify({spot: {userid: userid,
         zip: zip,
         latitude: latitude,
         longitude: longitude,
@@ -36,7 +43,7 @@ export default SpotCreation = ({ navigation }) => {
         description: description,
         spottype: spottype,
         status: status
-        })
+        }})
     };
 
     fetch(url, options)
@@ -68,13 +75,10 @@ export default SpotCreation = ({ navigation }) => {
         autoCorrect={false}
       />
 
-      <FormInput
-        labelValue={spottype}
-        onChangeText={(spottype) => setSpottype(spottype)}
-        placeholderText="spottype"
-        keyboardType="default"
-        autoCapitalize="none"
-        autoCorrect={false}
+      <ModalSelector
+        data={data}
+        initValue="tipo do spot"
+        onChange={(option)=>{ setSpottype(option.label) }}
       />
 
       <FormInput
@@ -108,7 +112,7 @@ export default SpotCreation = ({ navigation }) => {
         buttonTitle="Send for Approval"
         onPress={() => handleCreateSpot(userid,
           zip, latitude, longitude, name, description,
-          spottype, status, createdAt, updatedAt)}
+          spottype, status)}
       />
     </View>
   );

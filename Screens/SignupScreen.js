@@ -18,7 +18,7 @@ export default SignupScreen = ({navigation}) => {
 
     const handleSignup = () => {
       // Fetch
-      const url = 'http://192.168.100.6:3000/signup'
+      const url = 'http://localhost:3000/signup'
       const options = {
         method: 'POST',
         headers: {
@@ -26,18 +26,29 @@ export default SignupScreen = ({navigation}) => {
           'Content-Type': 'application/json;charset=UTF-8'
         },
         body: JSON.stringify({
-          lastname: lastName,
-          firstname: firstName,
-          userName: userName,
-          email: email,
-          password: password
+          lastname: user.lastName,
+          firstname: user.firstName,
+          username: user.userName,
+          email: user.email,
+          password: user.password,
+          isadmin: true
         })
       };
 
+      console.log("chegou aqui");
       fetch(url, options)
-        .then( response => { return response.json() })
-        .then( data => console.log(data) )
-        .catch()
+        .then( request => {
+          if(request.status == 200){
+            alert("Você foi cadastrado");
+            navigation.navigate('Login');
+          }
+          else if(request.status == 400){
+            alert("Não foi possivel cadastrar");
+          }
+        })
+        .catch(e =>{
+          console.log(e.message)
+        })
     };
     
     return (
@@ -102,7 +113,7 @@ export default SignupScreen = ({navigation}) => {
     
           <FormButton
             buttonTitle="Sign Up"
-            onPress={() => handleSignup(email, password)}
+            onPress={() => handleSignup({firstName, lastName, userName, email, password})}
           />
     
           <View style={styles.textPrivate}>
