@@ -11,14 +11,14 @@ import ModalSelector from 'react-native-modal-selector';
 //Lato-Regular
 
 export default SpotCreation = ({ navigation }) => {
-  const [userid, setUserId] = useState(1);
+  const [userEmail, setUserEmail] = useState();
   const [zip, setZip] = useState();
   const [latitude, setLatitude] = useState();
   const [longitude, setLongitude] = useState();
   const [name, setName] = useState();
   const [description, setDescription] = useState();
   const [spottype, setSpottype] = useState();
-  const [status, setStatus] = useState('not approved');
+  const [status, setStatus] = useState('approved');
 
   const data = [
     {key: 1, label: 'corrimão'},
@@ -35,21 +35,29 @@ export default SpotCreation = ({ navigation }) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json;charset=UTF-8'
       },
-      body: JSON.stringify({spot: {userid: userid,
-        zip: zip,
+      body: JSON.stringify({spot: {
+        address_zip: zip,
         latitude: latitude,
         longitude: longitude,
         name: name,
         description: description,
         spottype: spottype,
         status: status
-        }})
+        }}, userEmail)
     };
 
     fetch(url, options)
-      .then(response => { return response.json() })
-      .then(data => console.log(data))
-      .catch()
+      .then(response => { 
+        if(response.status == 200){
+          alert("spot cadastrado");
+        }
+        else if(response.status == 400){
+          alert("spot não foi cadastrado");
+        }
+       })
+      .catch( e => {
+        alert(e.message);
+      })
 
   };
 
@@ -108,9 +116,18 @@ export default SpotCreation = ({ navigation }) => {
         autoCorrect={false}
       />
 
+<FormInput
+        labelValue={userEmail}
+        onChangeText={(userEmail) => setUserEmail(userEmail)}
+        placeholderText="user email"
+        keyboardType="default"
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+
       <FormButton
         buttonTitle="Send for Approval"
-        onPress={() => handleCreateSpot(userid,
+        onPress={() => handleCreateSpot(userEmail,
           zip, latitude, longitude, name, description,
           spottype, status)}
       />
