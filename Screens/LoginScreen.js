@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Button, TouchableOpacity, Image } from 'react-native';
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
@@ -7,7 +7,16 @@ import { useFonts } from 'expo-font';
 export default LoginScreen = ({navigation}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState();
-  
+    const [logged, setLogged] = useState(false);
+
+    useEffect(() => {
+      (async () =>{
+        if(logged == true){() => navigation.navigate('SpotList')}
+      })();
+
+
+    }, []);
+
     const handleLogin = () => {
       // Fetch
       const url = 'http://192.168.100.6:3000/login'
@@ -24,12 +33,13 @@ export default LoginScreen = ({navigation}) => {
       };
       console.log("run")
 
-      console.log(JSON.stringify(options))
+      //console.log(JSON.stringify(options))
 
 
       fetch(url, options)
         .then( (response) => response.json())
-        .then( (json) => {console.log(json)})
+        .then( (json) => console.log(json))
+        .then(() => navigation.navigate('SpotList'))       
         .catch( (error) => {
           console.log(error.message)
         })
