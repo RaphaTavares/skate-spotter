@@ -6,6 +6,7 @@ import Pin from '../utils/Pin';
 import Spots from '../components/Spots';
 import { FlatList } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-picker/picker'; 
+import Navbar from '../navigation/navbar';
 
 export default SpotListScreen = ({navigation}) => {
     const [location, setLocation] = useState();
@@ -57,6 +58,7 @@ export default SpotListScreen = ({navigation}) => {
       console.log("Filtro: "+pick)
       return (
         <View style={styles.container}>
+          <Navbar />
           <MapView 
             style={styles.map}
             region={{
@@ -100,48 +102,6 @@ export default SpotListScreen = ({navigation}) => {
       return (<View></View>)
     }
   }
-
-    // useEffect(()=>{
-    //     const { coords, isGeolocationAvailable, isGeolocationEnabled } =
-    //     useGeolocated({
-    //         positionOptions: {
-    //             enableHighAccuracy: false,
-    //         },
-    //         userDecisionTimeout: 5000,
-    //     });
-    //     setCoords(coords);
-    //     setIsGeolocationAvailable(isGeolocationAvailable);
-    //     setIsGeolocationEnabled(isGeolocationEnabled);
-    //   }, []);
-
-//       if (!isGeolocationAvailable) {
-//         return (
-//           <Text>Seu browser não suporta geolocalização</Text>
-//         )
-//       } else if (!isGeolocationEnabled) {
-//         return (
-//         <Text>Geolocation não habilitada</Text>)
-//       } else if (coords) {
-//             <Text>Hello World</Text>,
-//             <MapView 
-//             style={styles.map}
-//             region={{
-//                 latitude: coords.latitude,
-//                 longitude: coords.longitude,
-//                 latitudeDelta: 0.015,
-//                 longitudeDelta: 0.0121,
-//             }}
-//             >
-//             <Marker
-//         coordinate={{
-//             latitude: coords.latitude,
-//             longitude: coords.longitude,
-//         }}
-//         title="Test"
-//         description="This is the test description"
-//         />
-//             </MapView>
-// };
 
 const styles = StyleSheet.create({
     container: {

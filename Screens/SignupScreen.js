@@ -16,9 +16,9 @@ export default SignupScreen = ({navigation}) => {
     const [password, setPassword] = useState();
     const [confirmPassword, setConfirmPassword] = useState();
 
-    const handleSignup = (user) => {
-
-      const url = 'http://192.168.15.14:3000/signup'
+    const handleSignup = () => {
+      // Fetch
+      const url = 'http://localhost:3000/signup'
       const options = {
         method: 'POST',
         headers: {
