@@ -18,7 +18,7 @@ export default SignupScreen = ({navigation}) => {
 
     const handleSignup = () => {
       // Fetch
-      const url = 'http://192.168.15.14:3000/signup'
+      const url = 'http://192.168.1.108:3000/signup'
       const options = {
         method: 'POST',
         headers: {

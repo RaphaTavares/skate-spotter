@@ -28,7 +28,7 @@ export default SpotListScreen = ({navigation}) => {
         let location = await Location.getCurrentPositionAsync({});
         setLocation(location);
         
-        const url = `http://192.168.100.6:3000/spot/getById?id=${route.params.id}`
+        const url = 'http://192.168.1.108:3000/spot/getById?id='+ route.params.id;
         const options = {
           method: 'GET'
         }

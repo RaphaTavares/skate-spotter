@@ -30,7 +30,7 @@ export default ApprovalList = ({navigation}) => {
         let location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest, maximumAge: 10000});
         setLocation(location);
         
-        const url = 'http://192.168.100.6:3000/spot/getAll'
+        const url = 'http://192.168.1.108:3000/spot/getAll'
         const options = {
           method: 'GET'
         }

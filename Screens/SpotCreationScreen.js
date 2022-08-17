@@ -28,7 +28,7 @@ export default SpotCreation = ({ navigation }) => {
   ]
 
   const handleCreateSpot = () => {
-    const url = 'http://192.168.15.14:3000/spot/createSpot'
+    const url = 'http://192.168.1.108:3000/spot/createSpot'
     const options = {
       method: 'POST',
       headers: {
